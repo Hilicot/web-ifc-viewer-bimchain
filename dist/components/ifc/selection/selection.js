@@ -25,9 +25,25 @@ export class IfcSelection extends IfcComponent {
             if (focusSelection)
                 await this.focusSelection();
         };
+        // TODO remove
         this.colorByID = async (modelID, ids, material) => {
             this.modelID = modelID;
             this.newColoredSelection(ids, material);
+        };
+        // TODO remove
+        this.newColoredSelection = (ids, material) => {
+            console.log(ids)
+            const mesh = this.loader.ifcManager.createSubset({
+                scene: this.scene,
+                modelID: this.modelID,
+                ids,
+                removePrevious: true,
+                material: material
+            });
+            if (mesh) {
+                this.mesh = mesh;
+                this.mesh.visible = true;
+            }
         };
         this.newSelection = (ids) => {
             const mesh = this.loader.ifcManager.createSubset({
@@ -36,19 +52,6 @@ export class IfcSelection extends IfcComponent {
                 ids,
                 removePrevious: true,
                 material: this.material
-            });
-            if (mesh) {
-                this.mesh = mesh;
-                this.mesh.visible = true;
-            }
-        };
-        this.newColoredSelection = (ids, material) => {
-            const mesh = this.loader.ifcManager.createSubset({
-                scene: this.scene,
-                modelID: this.modelID,
-                ids,
-                removePrevious: true,
-                material: material
             });
             if (mesh) {
                 this.mesh = mesh;

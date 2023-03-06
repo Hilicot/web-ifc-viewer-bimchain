@@ -12,7 +12,7 @@ export class IfcSelector {
         this.preselection = new IfcSelection(context, this.ifc.loader, this.defPreselectMat);
         this.selection = new IfcSelection(context, this.ifc.loader, this.defSelectMat);
         this.highlight = new IfcSelection(context, this.ifc.loader);
-        this.groupHighlights = {};
+        this.groupHighlights = {"green": new GroupHighlight(context, this.ifc.loader, this.initializeDefMaterial(0x00ff00, 0.5))};
     }
     /**
      * Highlights the item pointed by the cursor.
@@ -45,6 +45,7 @@ export class IfcSelector {
             return null;
         const mesh = item.object;
         const id = await this.selection.loader.ifcManager.getExpressId(mesh.geometry, item.faceIndex);
+        console.log(mesh, item)
         const modelID = mesh.modelID;
         const material = new MeshLambertMaterial({ color: color, side: DoubleSide, transparent: true, opacity: 0.5 });
         await this.selection.colorByID(modelID, [id], material);
@@ -53,7 +54,7 @@ export class IfcSelector {
 
     async createGroupHighlight(groupName, color) {
         const material = new MeshLambertMaterial({ color: color, side: DoubleSide, transparent: true, opacity: 0.5 });
-        this.groupHighlights[groupName] = new GroupHighlight(this.context_m, this.ifc.loader, material);
+        this.groupHighlights[groupName] = new GroupHighlight(this.context, this.ifc.loader, material);
             return this.groupHighlights[groupName];
     }
     
@@ -61,7 +62,7 @@ export class IfcSelector {
         return this.groupHighlights[groupName];
     }
     
-    async addToHighlightGroup(group){
+    async addRaycastedToHighlightGroup(group){
         const found = this.context_m.castRayIfc();
         if (!found)
             return null;
@@ -69,6 +70,11 @@ export class IfcSelector {
         if (result == null || result.modelID == null || result.id == null)
             return null;
         return result;
+    }
+
+    async addToHighlightGroup(ids, group){
+        await this.selection.colorByID(0, ids, group.material);
+        //await group.selectElements(ids);
     }
 
     /**

@@ -182,6 +182,7 @@ export class IfcViewerAPI {
      * TODO: Method to delete all data
      * Needs to be implemented yet
      */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     releaseAllMemory() { }
 }
 //# sourceMappingURL=ifc-viewer-api.js.map
