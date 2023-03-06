@@ -12,7 +12,7 @@ export class IfcSelector {
         this.preselection = new IfcSelection(context, this.ifc.loader, this.defPreselectMat);
         this.selection = new IfcSelection(context, this.ifc.loader, this.defSelectMat);
         this.highlight = new IfcSelection(context, this.ifc.loader);
-        this.groupHighlights = {"green": new GroupHighlight(context, this.ifc.loader, this.initializeDefMaterial(0x00ff00, 0.5))};
+        this.groupHighlights = {};
     }
     /**
      * Highlights the item pointed by the cursor.
@@ -53,7 +53,7 @@ export class IfcSelector {
     }
 
     async createGroupHighlight(groupName, color) {
-        const material = new MeshLambertMaterial({ color: color, side: DoubleSide, transparent: true, opacity: 0.5 });
+        const material = this.initializeDefMaterial(color, 0.5);
         this.groupHighlights[groupName] = new GroupHighlight(this.context, this.ifc.loader, material);
             return this.groupHighlights[groupName];
     }
@@ -61,7 +61,7 @@ export class IfcSelector {
     getGroupHighlight(groupName) {
         return this.groupHighlights[groupName];
     }
-    
+
     async addRaycastedToHighlightGroup(group){
         const found = this.context_m.castRayIfc();
         if (!found)
@@ -72,9 +72,8 @@ export class IfcSelector {
         return result;
     }
 
-    async addToHighlightGroup(ids, group){
-        await this.selection.colorByID(0, ids, group.material);
-        //await group.selectElements(ids);
+    addToHighlightGroup(ids, group){
+        group.selectElements(ids);
     }
 
     /**

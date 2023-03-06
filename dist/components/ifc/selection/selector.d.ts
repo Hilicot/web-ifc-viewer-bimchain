@@ -37,7 +37,7 @@ export declare class IfcSelector {
     getGroupHighlight(groupName: string)
     
     async addRaycastedToHighlightGroup(group: GroupHighlight)
-    async addToHighlightGroup(ids:number[], group: GroupHighlight)
+    addToHighlightGroup(ids:number[], group: GroupHighlight)
 
     /**
      * Highlights the item pointed by the cursor and gets is properties, without applying any material to it.

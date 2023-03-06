@@ -7,6 +7,12 @@ export class GroupHighlight extends IfcSelection {
         this.modelID = 0;
     }
 
+    clearSelection(){
+        if (this.mesh)
+            this.mesh.visible=false;
+        this.selected_ids = new Set();
+    }
+
     selectElements = (ids) => {
         ids.forEach(element => this.selected_ids.add(element));
         this.hideSelection(this.mesh);
@@ -14,7 +20,6 @@ export class GroupHighlight extends IfcSelection {
     }
     
     newSelection = (ids) => {
-        console.log(ids)
         const mesh = this.loader.ifcManager.createSubset({
             scene: this.scene,
             modelID: this.modelID,
