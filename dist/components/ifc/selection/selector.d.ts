@@ -27,17 +27,17 @@ export declare class IfcSelector {
         id: number;
     } | null>;
 
-    async colorIfcItem(color:any): Promise<{
+    async colorIfcItem(color: any): Promise<{
         modelID: number;
         id: number;
     }>
 
-    async createGroupHighlight(groupName:string, color:any) 
-    
+    async createGroupHighlight(groupName: string, color: any, opacity: number)
+
     getGroupHighlight(groupName: string)
-    
+
     async addRaycastedToHighlightGroup(group: GroupHighlight)
-    addToHighlightGroup(ids:number[], group: GroupHighlight)
+    addToHighlightGroup(ids: number[], group: GroupHighlight)
 
     /**
      * Highlights the item pointed by the cursor and gets is properties, without applying any material to it.

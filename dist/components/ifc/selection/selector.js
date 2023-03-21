@@ -52,8 +52,8 @@ export class IfcSelector {
         return {modelID:modelID, id:id};
     }
 
-    async createGroupHighlight(groupName, color) {
-        const material = this.initializeDefMaterial(color, 0.5);
+    async createGroupHighlight(groupName, color, opacity) {
+        const material = this.initializeDefMaterial(color, opacity);
         this.groupHighlights[groupName] = new GroupHighlight(this.context, this.ifc.loader, material);
             return this.groupHighlights[groupName];
     }
