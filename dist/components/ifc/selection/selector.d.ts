@@ -36,6 +36,8 @@ export declare class IfcSelector {
 
     getGroupHighlight(groupName: string)
 
+    getGroupHiglights()
+
     async addRaycastedToHighlightGroup(group: GroupHighlight)
     addToHighlightGroup(ids: number[], group: GroupHighlight)
 

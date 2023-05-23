@@ -45,24 +45,27 @@ export class IfcSelector {
             return null;
         const mesh = item.object;
         const id = await this.selection.loader.ifcManager.getExpressId(mesh.geometry, item.faceIndex);
-        console.log(mesh, item)
         const modelID = mesh.modelID;
         const material = new MeshLambertMaterial({ color: color, side: DoubleSide, transparent: true, opacity: 0.5 });
         await this.selection.colorByID(modelID, [id], material);
-        return {modelID:modelID, id:id};
+        return { modelID: modelID, id: id };
     }
 
     async createGroupHighlight(groupName, color, opacity) {
         const material = this.initializeDefMaterial(color, opacity);
         this.groupHighlights[groupName] = new GroupHighlight(this.context, this.ifc.loader, material);
-            return this.groupHighlights[groupName];
+        return this.groupHighlights[groupName];
     }
-    
+
     getGroupHighlight(groupName) {
         return this.groupHighlights[groupName];
     }
 
-    async addRaycastedToHighlightGroup(group){
+    getGroupHighlights() {
+        return this.groupHighlights;
+    }
+
+    async addRaycastedToHighlightGroup(group) {
         const found = this.context_m.castRayIfc();
         if (!found)
             return null;
@@ -72,7 +75,7 @@ export class IfcSelector {
         return result;
     }
 
-    addToHighlightGroup(ids, group){
+    addToHighlightGroup(ids, group) {
         group.selectElements(ids);
     }
 
