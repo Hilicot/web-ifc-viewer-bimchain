@@ -13,6 +13,7 @@ export declare class IfcSelector {
     private readonly defPreselectMat;
     private readonly defSelectMat;
     private readonly userDataField;
+    public groupHighlights: Map<string, Map<number, GroupHighlight>>;
     constructor(context: IfcContext, ifc: IfcManager);
     /**
      * Highlights the item pointed by the cursor.
@@ -32,9 +33,9 @@ export declare class IfcSelector {
         id: number;
     }>
 
-    async createGroupHighlight(groupName: string, color: any, opacity: number)
+    async createGroupHighlight(modelID:number, groupName: string, color: any, opacity: number)
 
-    getGroupHighlight(groupName: string)
+    getGroupHighlight(groupName: string, modelID:number)
 
     getGroupHiglights()
 

@@ -51,18 +51,20 @@ export class IfcSelector {
         return { modelID: modelID, id: id };
     }
 
-    async createGroupHighlight(groupName, color, opacity) {
+    async createGroupHighlight(modelID, groupName, color, opacity) {
         const material = this.initializeDefMaterial(color, opacity);
-        this.groupHighlights[groupName] = new GroupHighlight(this.context, this.ifc.loader, material);
-        return this.groupHighlights[groupName];
+        if (!this.groupHighlights[groupName])
+            this.groupHighlights[groupName] = {};
+        this.groupHighlights[groupName][modelID] = new GroupHighlight(this.context, this.ifc.loader, material, modelID);
+        return this.groupHighlights[groupName][modelID];
     }
 
-    getGroupHighlight(groupName) {
-        return this.groupHighlights[groupName];
+    getGroupHighlight(groupName, modelID) {
+        return this.groupHighlights[groupName][modelID];
     }
 
     getGroupHighlights() {
-        return this.groupHighlights || [];
+        return this.groupHighlights;
     }
 
     async addRaycastedToHighlightGroup(group) {

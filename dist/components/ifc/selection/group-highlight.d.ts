@@ -5,7 +5,7 @@ import { IfcContext } from '../../context';
 
 export declare class GroupHighlight extends IfcSelection {
     selected_ids: Set<number>;
-    constructor(context: IfcContext, loader: IFCLoader, material?: Material) ;
+    constructor(context: IfcContext, loader: IFCLoader, material?: Material, modelID:number) ;
 
     clearSelection: () => void;
 
