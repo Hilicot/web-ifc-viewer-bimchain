@@ -62,7 +62,7 @@ export class IfcSelector {
     }
 
     getGroupHighlights() {
-        return this.groupHighlights;
+        return this.groupHighlights || [];
     }
 
     async addRaycastedToHighlightGroup(group) {
