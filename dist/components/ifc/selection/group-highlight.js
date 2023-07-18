@@ -7,7 +7,7 @@ export class GroupHighlight extends IfcSelection {
         this.modelID = modelID;
     }
 
-    clearSelection(){
+    clearSelection() {
         if (this.meshes)
             this.mesh.visible = false;
         this.selected_ids = new Set();
@@ -20,19 +20,24 @@ export class GroupHighlight extends IfcSelection {
         this.hideSelection(this.mesh);
         this.newSelection(Array.from(this.selected_ids));
     }
-    
+
     newSelection = (ids) => {
-        const mesh = this.loader.ifcManager.createSubset({
-            scene: this.scene,
-            modelID: this.modelID,
-            ids,
-            removePrevious: true,
-            material: this.material
-        });
-        if (mesh) {
-            this.mesh = mesh;
-            this.mesh.visible = true;
+        try {
+            const mesh = this.loader.ifcManager.createSubset({
+                scene: this.scene,
+                modelID: this.modelID,
+                ids,
+                removePrevious: true,
+                material: this.material
+            });
+            if (mesh) {
+                this.mesh = mesh;
+                this.mesh.visible = true;
+            }
+        } catch (e) {
+            console.log(e);
+
         }
-    };
+    }
 
 }
